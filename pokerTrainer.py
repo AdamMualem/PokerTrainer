@@ -152,7 +152,7 @@ if __name__ == '__main__':
         st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player1card1suit")
         st.subheader("Card 2:")
         st.selectbox('Rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], key = "player1card2rank")
-        st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player1card2suit")
+        st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player1card2suit", index = 1)
         st.text(" ")
         st.text(" ")
         st.text(" ")
@@ -169,9 +169,9 @@ if __name__ == '__main__':
         p2container.header("Player Two")
         st.subheader("Card 1:")
         st.selectbox('Rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], key = "player2card1rank")
-        st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player2card1suit")
+        st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player2card1suit", index = 2)
         st.subheader("Card 2:")
-        st.selectbox('Rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], key = "player2card2rank")
+        st.selectbox('Rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'], key = "player2card2rank", index = 12)
         st.selectbox("Suit:", ['Clubs', 'Diamonds', 'Hearts', 'Spades'], key = "player2card2suit")
         st.text(" ")
         st.text(" ")
@@ -187,15 +187,17 @@ if __name__ == '__main__':
     col3.write("By Adam Mualem")
     col3.image('./table.png', width = 700)
 
-    #run game with button and display results 
+    #run game with button and display results
     if col3.button('Run Game'):
         x = 1000
         sum = 0
-        for i in range(x):
-            sum += runGame(player1Hand, player2Hand)
-        stat = sum * 100 / x
-
-        if stat >= 50:
-            col3.subheader('Player One beats Player Two ' + str(stat) + "% of the time")
-        else:
-            col3.subheader('Player Two beats Player One ' + str(100 - stat) + "% of the time")
+        try:
+            for i in range(x):
+                sum += runGame(player1Hand, player2Hand)
+            stat = sum * 100 / x
+            if stat >= 50:
+                col3.subheader('Player One beats Player Two ' + str(stat) + "% of the time")
+            else:
+                col3.subheader('Player Two beats Player One ' + str(100 - stat) + "% of the time")
+        except:
+            col3.subheader('You cannot use duplicate cards')
